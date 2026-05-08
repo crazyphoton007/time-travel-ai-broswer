@@ -13,5 +13,9 @@ contextBridge.exposeInMainWorld("timeTravel", {
 
   onClickThroughOff: (callback) => {
     ipcRenderer.on("click-through-off", callback);
+  },
+
+  transcribeAudio: (audioBuffer) => {
+    return ipcRenderer.invoke("transcribe-audio", audioBuffer);
   }
 });

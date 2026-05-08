@@ -81,6 +81,64 @@ button {
   width: 90px;
 }
 
+.voiceBar {
+  position: absolute;
+  left: 50%;
+  bottom: 105px;
+  transform: translateX(-50%);
+  z-index: 9999;
+  width: min(620px, calc(100vw - 80px));
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.25);
+}
+
+.micButton {
+  width: 48px;
+  height: 42px;
+  border-radius: 14px;
+  font-size: 22px;
+  background: #eeeeee;
+  color: black;
+}
+
+.micButton.listening {
+  background: #111111;
+  color: white;
+}
+
+.voiceStatus {
+  min-width: 90px;
+  font-size: 13px;
+  color: #555;
+  white-space: nowrap;
+}
+
+.voiceInput {
+  flex: 1;
+  height: 38px;
+  border: 1px solid #ddd;
+  outline: none;
+  border-radius: 10px;
+  padding: 0 12px;
+  background: white;
+}
+
+.autoSend {
+  color: #333;
+  font-size: 13px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .browser {
   display: flex;
   width: 100%;

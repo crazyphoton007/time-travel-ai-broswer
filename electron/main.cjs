@@ -1,9 +1,28 @@
-const { app, BrowserWindow, ipcMain, globalShortcut } = require("electron");
+const { app, BrowserWindow, ipcMain, globalShortcut, session } = require("electron");
 const path = require("path");
+const fs = require("fs");
+const os = require("os");
+require("dotenv").config();
+
+const OpenAIImport = require("openai");
+const OpenAI = OpenAIImport.default || OpenAIImport;
 
 let mainWindow;
 
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
+
 function createWindow() {
+  session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
+    if (permission === "media") {
+      callback(true);
+      return;
+    }
+
+    callback(true);
+  });
+
   mainWindow = new BrowserWindow({
     width: 1100,
     height: 750,
@@ -32,6 +51,29 @@ function createWindow() {
 }
 
 app.whenReady().then(createWindow);
+
+ipcMain.handle("transcribe-audio", async (_, audioBuffer) => {
+  if (!process.env.OPENAI_API_KEY) {
+    throw new Error("OPENAI_API_KEY is missing in .env file");
+  }
+
+  const tempPath = path.join(os.tmpdir(), `timetravel-audio-${Date.now()}.webm`);
+
+  try {
+    fs.writeFileSync(tempPath, Buffer.from(audioBuffer));
+
+    const transcription = await openai.audio.transcriptions.create({
+      file: fs.createReadStream(tempPath),
+      model: "gpt-4o-mini-transcribe"
+    });
+
+    return transcription.text || "";
+  } finally {
+    if (fs.existsSync(tempPath)) {
+      fs.unlinkSync(tempPath);
+    }
+  }
+});
 
 ipcMain.on("set-opacity", (_, value) => {
   mainWindow?.setOpacity(value);
