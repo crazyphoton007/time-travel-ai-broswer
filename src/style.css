@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  font-family: Arial, sans-serif;
+}
+
+.app {
+  width: 100vw;
+  height: 100vh;
+  padding: 12px;
+  background: rgba(10, 10, 10, 0.18);
+}
+
+.topbar {
+  height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 16px;
+  background: rgba(20, 20, 20, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-app-region: drag;
+}
+
+.brand {
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.address {
+  flex: 1;
+  height: 34px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  padding: 0 12px;
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-app-region: no-drag;
+}
+
+button,
+input,
+label {
+  -webkit-app-region: no-drag;
+}
+
+button {
+  height: 34px;
+  border: none;
+  border-radius: 10px;
+  padding: 0 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.danger {
+  background: #ff4d4d;
+  color: white;
+}
+
+.sliderWrap {
+  color: white;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sliderWrap input {
+  width: 90px;
+}
+
+.browser {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 78px);
+  margin-top: 12px;
+  border: none;
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.84);
+}
